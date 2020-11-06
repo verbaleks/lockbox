@@ -18,10 +18,12 @@ task :benchmark do
   value = "secret" * 5
 
   aes_gcm = Lockbox.new(key: key, algorithm: "aes-gcm")
+  aes_cbc = Lockbox.new(key: key, algorithm: "aes-cbc")
   xsalsa20 = Lockbox.new(key: key, algorithm: "xsalsa20")
 
   Benchmark.ips do |x|
     x.report("aes-gcm") { aes_gcm.decrypt(aes_gcm.encrypt(value)) }
+    x.report("aes-cbc") { aes_cbc.decrypt(aes_cbc.encrypt(value)) }
     x.report("xsalsa20") { xsalsa20.decrypt(xsalsa20.encrypt(value)) }
   end
 end

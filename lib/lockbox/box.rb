@@ -14,6 +14,10 @@ module Lockbox
         raise ArgumentError, "Missing key" unless key
         require "lockbox/aes_gcm"
         @box = AES_GCM.new(key)
+      when "aes-cbc"
+        raise ArgumentError, "Missing key" unless key
+        require "lockbox/aes_cbc"
+        @box = AES_CBC.new(key)
       when "xchacha20"
         raise ArgumentError, "Missing key" unless key
         require "rbnacl"

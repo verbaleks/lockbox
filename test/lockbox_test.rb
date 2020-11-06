@@ -95,6 +95,15 @@ class LockboxTest < Minitest::Test
     end
   end
 
+  def test_aes_cbc_algorithm
+    key = random_key
+    encrypt_box = Lockbox.new(key: key, algorithm: "aes-cbc")
+    message = "it works!"
+    ciphertext = encrypt_box.encrypt(message)
+    decrypt_box = Lockbox.new(key: key, algorithm: "aes-cbc")
+    assert_equal message, decrypt_box.decrypt(ciphertext)
+  end
+
   def test_xsalsa20
     lockbox = Lockbox.new(key: random_key, algorithm: "xsalsa20")
     message = "it works!" * 10000
