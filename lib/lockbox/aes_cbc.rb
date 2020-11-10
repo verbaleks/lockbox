@@ -30,7 +30,7 @@ module Lockbox
 
       fail_decryption if nonce.to_s.bytesize != nonce_bytes
 
-      cipher = OpenSSL::Cipher.new("aes-256-cbc")
+      cipher = OpenSSL::Cipher.new("aes-256-cbc-hmac-sha256")
       # do not change order of operations
       cipher.decrypt
       cipher.key = @key
