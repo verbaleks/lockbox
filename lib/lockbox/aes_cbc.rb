@@ -8,7 +8,7 @@ module Lockbox
     end
 
     def encrypt(nonce, message, associated_data)
-      cipher = OpenSSL::Cipher.new("AES-256-CBC")
+      cipher = OpenSSL::Cipher.new("aes256")
       # do not change order of operations
       cipher.encrypt
       cipher.key = @key
@@ -30,7 +30,7 @@ module Lockbox
 
       fail_decryption if nonce.to_s.bytesize != nonce_bytes
 
-      cipher = OpenSSL::Cipher.new("aes-256-cbc-hmac-sha256")
+      cipher = OpenSSL::Cipher.new("aes256")
       # do not change order of operations
       cipher.decrypt
       cipher.key = @key
